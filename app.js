@@ -1,5 +1,5 @@
 {
-  "name": "Kroms Image Slider",
+  "name": "KromsImageSlider",
   "description": "",
   "scripts": {
   },
