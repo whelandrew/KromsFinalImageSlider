@@ -22,6 +22,7 @@ const options = {
 
 router.get('/getAllFolders', function (request, response, next)
 {  		
+console.log('getAllFolders');
 	axios({
 		method: 'post',
 		url: 'https://api.dropboxapi.com/2/files/list_folder',
