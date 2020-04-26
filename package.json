@@ -1,13 +1,13 @@
 {
-  "name": "KromsFinalImageSlider",
+  "name": "Kroms Image Slider",
   "version": "1.0.0",
-  "description": "",
+  "description": "How to use create-react-app with a custom Node API on Heroku",
   "engines": {
     "node": "10.x"
   },
   "scripts": {
     "start": "node server",
-    "build": "cd react-ui/ && npm install"
+    "build": "cd react-ui/ && npm install && npm run build"
   },
   "cacheDirectories": [
     "node_modules",
