@@ -141,7 +141,7 @@ export default class Carousel extends React.Component
 												</div>
 												<div className="column" key='{item.id}imgCol'>
 												<button key='{item.id}a' href={item.result.preview_url} target='_blank'>
-													<img key='{item.id}img' className="center" src={item.result.preview_url.replace('dl=0','dl=1')} alt="Oops! This one didn't load. Try refreshing."/>	
+													<img key='{item.id}img' target="_blank" className="center" src={item.result.preview_url.replace('dl=0','dl=1')} alt="Oops! This one didn't load. Try refreshing."/>	
 												</button>
 												</div>
 												<div className="column" key='{item.id}noCol'>
