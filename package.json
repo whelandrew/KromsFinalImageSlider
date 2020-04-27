@@ -1,13 +1,13 @@
 {
-  "name": "kromsfinalimageslider",
+  "name": "heroku-cra-node",
   "version": "3.0.0",
-  "description": "Sorting program for images on Dropbox",
+  "description": "How to use create-react-app with a custom Node API on Heroku",
   "engines": {
     "node": "10.x"
   },
   "scripts": {
     "start": "node server",
-    "build": "cd react_ui/ && npm install && npm run build"
+    "build": "cd react-ui/ && npm install && npm run build"
   },
   "cacheDirectories": [
     "node_modules",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/whelandrew/KromsFinalImageSlider"
+    "url": "https://github.com/mars/heroku-cra-node.git"
   },
   "keywords": [
     "node",
