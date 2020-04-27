@@ -1,7 +1,7 @@
 {
-  "name": "KromsImageSlider",
-  "version": "1.0.0",
-  "description": "",
+  "name": "kromsfinalimageslider",
+  "version": "3.0.0",
+  "description": "Sorting program for images on Dropbox",
   "engines": {
     "node": "10.x"
   },
