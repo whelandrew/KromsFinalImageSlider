@@ -94,14 +94,10 @@ app.use(cors());
 app.use('/db', dbRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
-app.use('/authRouter', indexRouter);
+app.use('/', indexRouter);
 
 //GET////
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function(request, response) {
 	response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
   });
-
-
-
-
