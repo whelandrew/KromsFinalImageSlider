@@ -1,69 +1,58 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {Route, withRouter} from 'react-router-dom';
 
-function App() {
-  const [message, setMessage] = useState(null);
-  const [isFetching, setIsFetching] = useState(false);
-  const [url, setUrl] = useState('/api');
+import auth0Client from './Auth';
+import NavBar from './NavBar/NavBar';
+import Dropbox from './DropboxChooser/DropboxChooser';
+import Carousel from './Carousel/Carousel';
+import Callback from './Callback/Callback';
 
-  const fetchData = useCallback(() => {
-    fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`status ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(json => {
-        setMessage(json.message);
-        setIsFetching(false);
-      }).catch(e => {
-        setMessage(`API call failed: ${e}`);
-        setIsFetching(false);
-      })
-  }, [url]);
-
-  useEffect(() => {
-    setIsFetching(true);
-    fetchData();
-  }, [fetchData]);
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        { process.env.NODE_ENV === 'production' ?
-            <p>
-              This is a production build from create-react-app.
-            </p>
-          : <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-        }
-        <p>{'« '}<strong>
-          {isFetching
-            ? 'Fetching message from API'
-            : message}
-        </strong>{' »'}</p>
-        <p><a
-          className="App-link"
-          href="https://github.com/mars/heroku-cra-node"
-        >
-          React + Node deployment on Heroku
-        </a></p>
-        <p><a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a></p>
-      </header>
-    </div>
-  );
-
+class App extends React.Component 
+{
+	constructor(props) 
+	{
+		super(props);
+		this.state = 
+		{
+			checkingSession: true,
+		}
+	}
+  
+	async componentDidMount() 
+	{
+		if (this.props.location.pathname === '/Callback') 
+		{
+			this.setState({checkingSession:false});
+			return;
+		}
+		try 
+		{
+			await auth0Client.silentAuth();
+			this.forceUpdate();
+		} 
+		catch (err) 
+		{ 
+			if (err.error !== 'login_required') 
+			{
+				console.log(err);
+			}
+		}
+	}
+	
+  render() {
+    return (
+      <div>
+		<NavBar />
+			<div>
+			{	auth0Client.isAuthenticated() 
+				&& 	<Route exact path='/' component={Dropbox}/>
+			}		
+			<Route exact path='/Callback' component={Callback}/>
+			<Route exact path='/Carousel' component={Carousel}/>
+		</div>
+      </div>
+    );
+  }
 }
 
-export default App;
+export default withRouter(App);

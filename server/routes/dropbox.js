@@ -31,9 +31,9 @@ console.log('getAllFolders');
 	})
 	 .then(function (res)
 	 {
-		response.send(JSON.stringify(res.data));
+		response.send(JSON.stringify(res.data));				
 	})
-	.catch(function (error) {
+	.catch(function (error) {		
 		response.status(500).send(error);
 	});	
 });	
