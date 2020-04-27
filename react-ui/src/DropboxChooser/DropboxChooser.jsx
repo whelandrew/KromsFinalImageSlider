@@ -34,7 +34,7 @@ class Dropbox extends React.Component {
 	{		
 		try
 		{
-			const database = (await axios.get('/getData')).data;	
+			const database = (await axios.get('/authRouter/getData')).data;	
 			
 			if(database.id !== undefined)
 			{
@@ -89,7 +89,7 @@ class Dropbox extends React.Component {
 		.then( data =>
 		{			
 			let path = data.path_display.replace(data.name,'');			
-			fetch('/saveData',
+			fetch('/authRouter/saveData',
 			{
 				method:'POST',
 				headers: {'Content-Type': 'application/json'},
@@ -130,7 +130,7 @@ class Dropbox extends React.Component {
 			else if(data.length < 1)
 				console.log("no files found");
 			else
-			{
+			{				
 				let folders = data.entries.filter(obj => {return obj['.tag']==='folder'});
 				this.setState({folderSet:folders});			
 			}
@@ -153,7 +153,9 @@ class Dropbox extends React.Component {
   render() {
     return (
 		<div className="contentWindow">			
-			<div id="foldersBody" className='grid-container'>					
+			<div id="foldersBody" className='grid-container'>	
+				{	this.state.folderSet === null 
+				&& <h1> Loading... </h1>}
 				{	this.state.folderSet != null	
 					&& <ul>
 						<div>

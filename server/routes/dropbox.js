@@ -1,20 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const dotenv = require('dotenv');
 const cors = require('cors');
-router.use(cors());
-dotenv.config();
 
-const data = {
-				'path': '',
-				'recursive': false,
-				'include_media_info': false,
-				'include_deleted': false,
-				'include_has_explicit_shared_members': false,
-				'include_mounted_folders': true,
-				'include_non_downloadable_files': false
-			};
 const options = {
 				'Content-Type' : 'application/json', 
 				'Authorization' : process.env.DB_AUTH
@@ -22,11 +10,19 @@ const options = {
 
 router.get('/getAllFolders', function (request, response, next)
 {  		
-console.log('getAllFolders');
+	console.log('getAllFolders');
 	axios({
 		method: 'post',
 		url: 'https://api.dropboxapi.com/2/files/list_folder',
-		data:data,
+		data:{
+				'path': '',
+				'recursive': false,
+				'include_media_info': false,
+				'include_deleted': false,
+				'include_has_explicit_shared_members': false,
+				'include_mounted_folders': true,
+				'include_non_downloadable_files': false
+			},
 		headers: options
 	})
 	 .then(function (res)
@@ -61,20 +57,17 @@ router.post('/metaFileData', function(request, response, next)
 });
 
 router.post('/moveFile', function(request, response, next)
-{
-	let data = 
-	{
+{	
+	axios({
+		method: 'post',
+		url: 'https://api.dropboxapi.com/2/files/move_v2',
+		data : {
 		from_path : request.body.fromFolder,
 		to_path : request.body.toFolder,
 		allow_shared_folder : false,
 		autorename : false,
 		allow_ownership_transfer : false
-	};
-	
-	axios({
-		method: 'post',
-		url: 'https://api.dropboxapi.com/2/files/move_v2',
-		data : data,
+	},
 		headers: options
 	})
 	.then(function (res)
@@ -89,13 +82,18 @@ router.post('/moveFile', function(request, response, next)
 
 router.post('/metaFileDataBatch', function(request, response, next)
 {
-	let data = { 
-		files : request.body
-	};
 	axios({
 		method: 'post',
 		url: 'https://api.dropboxapi.com/2/sharing/get_file_metadata/batch',
-		data : data,
+		data : {
+				'path': request.body,
+				'recursive': false,
+				'include_media_info': false,
+				'include_deleted': false,
+				'include_has_explicit_shared_members': false,
+				'include_mounted_folders': true,
+				'include_non_downloadable_files': false
+			},
 		headers: options
 	})
 	.then(function (res)

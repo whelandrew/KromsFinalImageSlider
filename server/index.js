@@ -8,13 +8,12 @@ var helmet = require('helmet');
 var cors = require('cors');
 var fs = require('fs');
 var numCPUs = require('os').cpus().length;
-var jwt = require('express-jwt');
-var jwksRsa = require('jwks-rsa');
 var debug = require('debug')('api:server');
 
 var indexRouter 	= require('./routes/index');
 var usersRouter 	= require('./routes/users');
 var dbRouter 		= require('./routes/dropbox');
+var authRouter 		= require('./routes/auth');
 
 var isDev = process.env.NODE_ENV !== 'production';
 var PORT = normalizePort(process.env.PORT || '9000');
@@ -93,8 +92,9 @@ app.use(helmet());
 app.use(cors());
 
 app.use('/db', dbRouter);
+app.use('/auth', authRouter);
 app.use('/users', usersRouter);
-app.use('/', indexRouter);
+app.use('/authRouter', indexRouter);
 
 //GET////
 // All remaining requests return the React app, so it can handle routing.
@@ -102,47 +102,6 @@ app.get('*', function(request, response) {
 	response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
   });
 
-app.get("/getData", function(request, response, next) {
-	console.log('getData');	
-	let data = fs.readFileSync('./DBFolders.json'), folders;	
-	try
-	{
-		folders = JSON.parse(data);				
-		response.send(folders)
-	}
-	catch(err)
-	{
-		console.log(err);
-		response.send(folders);
-	}
-});
 
-//POST////
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-	cache: true,
-	rateLimit: true,
-	jwksRequestsPerMinute: 5,
-	jwksUri: `https://dev-fm2wv99w.auth0.com/.well-known/jwks.json`
-  }),
-
-  // Validate the audience and the issuer.
-  audience: '7oOamgAhmy2W0XAq3wRnHgCmbagollKO',
-  issuer: `https://dev-fm2wv99w.auth0.com/`,
-  algorithms: ['RS256']
-});
-
-app.post("/saveData", function(request,response,next)
-{		
-	let data = JSON.stringify(request.body);			
-	fs.writeFile('./DBFolders.json', data, 
-		function (err) 
-		{
-			if (err)
-				response.send(err);
-			
-			response.send(request.body);
-		});
-});
 
 
