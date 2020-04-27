@@ -34,7 +34,7 @@ class Dropbox extends React.Component {
 	{		
 		try
 		{
-			const database = (await axios.get('http://localhost:9000/getData')).data;	
+			const database = (await axios.get('/getData')).data;	
 			
 			if(database.id !== undefined)
 			{
@@ -76,7 +76,7 @@ class Dropbox extends React.Component {
   {
 	console.log('saveFolders');	
 	
-	fetch('http://localhost:9000/db/metaFileData',
+	fetch('/db/metaFileData',
 		{
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
@@ -89,7 +89,7 @@ class Dropbox extends React.Component {
 		.then( data =>
 		{			
 			let path = data.path_display.replace(data.name,'');			
-			fetch('http://localhost:9000/saveData',
+			fetch('/saveData',
 			{
 				method:'POST',
 				headers: {'Content-Type': 'application/json'},
@@ -121,7 +121,7 @@ class Dropbox extends React.Component {
   getFolderSet()
   {
 	  console.log("getFolderSet");
-	  fetch('http://localhost:9000/db/getAllFolders')
+	  fetch('/db/getAllFolders')
 		.then( res => { return res.json(); })		
 		.then( data => 
 		{			

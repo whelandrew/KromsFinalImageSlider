@@ -44,7 +44,7 @@ export default class Carousel extends React.Component
 		const sendToFolder = toFolder +'/' + data.result.name;
 		const fromFolder = this.props.location.state.database.fromFolder.name + data.result.name;
 		
-		fetch('http://localhost:9000/db/moveFile', 
+		fetch('/db/moveFile', 
 		{
 			method: "POST",			
 			headers: {'Content-Type': 'application/json'},
@@ -74,7 +74,7 @@ export default class Carousel extends React.Component
 	{		
 		console.log('getImages');	
 		
-		fetch('http://localhost:9000/db/getImages',
+		fetch('/db/getImages',
 		{
 			method:'POST',
 			headers: {'Content-Type': 'application/json'},
@@ -92,7 +92,7 @@ export default class Carousel extends React.Component
 			data.forEach(i=>idArr.push(i.id));	
 			idArr = JSON.stringify(idArr);
 			
-			fetch('http://localhost:9000/db/metaFileDataBatch',
+			fetch('/db/metaFileDataBatch',
 			{
 				method:'POST',
 				headers: {'Content-Type': 'application/json'},
