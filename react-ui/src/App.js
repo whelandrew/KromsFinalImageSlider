@@ -34,7 +34,7 @@ class App extends React.Component
 		{ 
 			if (err.error !== 'login_required') 
 			{
-				console.log(err);
+				console.log(err.error);
 			}
 		}
 	}

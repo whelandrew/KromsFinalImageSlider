@@ -1,15 +1,15 @@
 import auth0 from 'auth0-js';
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
+
 
 class Auth {
   constructor() {
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
-      domain: "dev-fm2wv99w.auth0.com",
+      domain: 'dev-fm2wv99w.auth0.com',
       audience: 'https://dev-fm2wv99w.auth0.com/userinfo',
-      clientID: '7oOamgAhmy2W0XAq3wRnHgCmbagollKO',
-      redirectUri: 'http://localhost:9000/Callback',
+      clientID: "7oOamgAhmy2W0XAq3wRnHgCmbagollKO",
+      redirectUri: "http://localhost:9000/Callback",
       responseType: 'id_token',
       scope: 'openid profile'
     });
@@ -59,8 +59,8 @@ class Auth {
 
   signOut() {
     this.auth0.logout({
-      returnTo: 'http://localhost:9000',
-      clientID: '7oOamgAhmy2W0XAq3wRnHgCmbagollKO',
+      returnTo: "http://localhost:9000",
+      clientID: "7oOamgAhmy2W0XAq3wRnHgCmbagollKO",
     });
   }
 
