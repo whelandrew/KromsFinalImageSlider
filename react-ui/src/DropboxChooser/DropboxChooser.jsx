@@ -34,15 +34,22 @@ class Dropbox extends React.Component {
 	{		
 		try
 		{
-			const database = (await axios.get('/authRouter/getData')).data;	
+			const database = (await axios.get('/auth/getData')).data;	
 			this.setState({database:{database}});	
 		
-			this.props.history.push({
-				pathname:'/Carousel',
-				state: {
-					database:database
-				}					
-			});
+			if(this.database !== undefined)
+			{
+				this.props.history.push({
+					pathname:'/Carousel',
+					state: {
+						database:database
+					}					
+				});
+			}
+			else
+			{
+				this.getFolderSet();
+			}
 		}
 		catch(e)
 		{
@@ -81,7 +88,7 @@ class Dropbox extends React.Component {
 		.then( data =>
 		{			
 			let path = data.path_display.replace(data.name,'');			
-			fetch('/authRouter/saveData',
+			fetch('/auth/saveData',
 			{
 				method:'POST',
 				headers: {'Content-Type': 'application/json'},
