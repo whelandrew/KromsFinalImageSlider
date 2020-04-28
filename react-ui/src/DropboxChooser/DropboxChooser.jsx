@@ -124,9 +124,7 @@ class Dropbox extends React.Component {
 		.then( res => { return res.json(); })		
 		.then( data => 
 		{			
-			if(data.name && data.name === 'Error')
-				console.log(data.message);
-			else if(data.length < 1)
+			if(data === undefined)
 				console.log("no files found");
 			else
 			{				
