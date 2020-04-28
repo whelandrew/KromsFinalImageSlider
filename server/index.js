@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var helmet = require('helmet');
 var cors = require('cors');
-var fs = require('fs');
+
 var numCPUs = require('os').cpus().length;
 var debug = require('debug')('api:server');
 

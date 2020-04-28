@@ -6,7 +6,7 @@ var jwksRsa = require('jwks-rsa');
 
 router.get("/getData", function(request, response, next) {
 	console.log('getData');	
-	let data = fs.readFileSync('./DBFolders.json'), folders;	
+	let data = fs.readFileSync('../DBFolders.json'), folders;	
 	try
 	{
 		folders = JSON.parse(data);				
@@ -37,7 +37,7 @@ const checkJwt = jwt({
 router.post("/saveData", function(request,response,next)
 {
 	let data = JSON.stringify(request.body);
-	fs.writeFile('./DBFolders.json', data, 
+	fs.writeFile('../DBFolders.json', data, 
 		function (err) 
 		{
 			if (err)
