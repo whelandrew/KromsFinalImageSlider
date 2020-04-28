@@ -122,9 +122,10 @@ class Dropbox extends React.Component {
 	  console.log("getFolderSet");
 	  fetch('/db/getAllFolders')
 		.then( res => { return res.json(); })		
-		.then( data => 
+		.then( data =>
 		{			
-			if(data === undefined)
+			
+			if(!data.hasOwnProperty(data.entries))			
 				console.log("no files found");
 			else
 			{				
