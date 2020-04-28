@@ -110,9 +110,7 @@ export default class Carousel extends React.Component
 	{
 		return (			
 			<div>
-				{	this.state.images === null
-					&& <h1 key="loading" id="loading">Loading...</h1>
-				}
+				{	this.state.images === null && <h1 key="loading" id="loading">Loading...</h1> }
 				{	this.state.images != null
 					&& <div key='carousel' id='carousel'>							
 						<div key="carouselTopBar" id="carouselTopBar" className='grid-container'>		
