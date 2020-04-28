@@ -23,7 +23,8 @@ export default class Carousel extends React.Component
 				speed: 500,
 				slidesToShow: 1,
 				slidesToScroll: 1,
-				loading: true
+				loading: true,
+				ready: false
 			}
 		}
 	}	
@@ -89,19 +90,29 @@ export default class Carousel extends React.Component
 			if(data.length > cap) data = data.slice(0,cap);
 			
 			let idArr = [];
-			data.forEach(i=>idArr.push(i.id));	
-			idArr = JSON.stringify(idArr);
+			data.forEach(i=>idArr.push(i.id));				
 			
 			fetch('/db/metaFileDataBatch',
 			{
 				method:'POST',
-				headers: {'Content-Type': 'application/json'},
-				body: idArr,
+				body: JSON.stringify(idArr),
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			})
 			.then( res => { return res.json(); })
 			.then( data => 
 			{				
-				this.setState({images:data});				
+				if(data.length > 0 )
+				{
+					//data.map ((item,key)=>item.result.preview_url=item.result.preview_url.replace('dl=0','dl=1'));
+					this.setState({images:data});				
+					this.setState({ready:true});
+				}
+				else
+				{
+					alert('We could not find any image files in this folder');
+				}
 			});		
 		});
 	}
@@ -110,8 +121,8 @@ export default class Carousel extends React.Component
 	{
 		return (			
 			<div>
-				{	this.state.images === null && <h1 key="loading" id="loading">Loading...</h1> }
-				{	this.state.images != null
+				{	this.state.ready === false && <h1 key="loading" id="loading">Loading...</h1> }
+				{	this.state.ready === true
 					&& <div key='carousel' id='carousel'>							
 						<div key="carouselTopBar" id="carouselTopBar" className='grid-container'>		
 							<p key="grid1" className="grid-item">Save to</p>
@@ -138,9 +149,9 @@ export default class Carousel extends React.Component
 												</button>
 												</div>
 												<div className="column" key='{item.id}imgCol'>
-												<button key='{item.id}a' href={item.result.preview_url} target='_blank'>
-													<img key='{item.id}img' target="_blank" className="center" src={item.result.preview_url.replace('dl=0','dl=1')} alt="Oops! This one didn't load. Try refreshing."/>	
-												</button>
+													<button target="_blank" onClick={()=>{window.open(item.result.preview_url, '_blank')}}>
+															<img key='{item.id}img' className="center" src={item.result.preview_url.replace('dl=0','dl=1')} alt="This one didn't load. Try refreshing."/>															
+													</button>
 												</div>
 												<div className="column" key='{item.id}noCol'>
 												<button id='noButton' className="btn btn-danger" key='{item.id}noButton' onClick={()=>this.rebuildSet(item, this.props.location.state.database.noFolder)}>

@@ -6,16 +6,18 @@ var jwksRsa = require('jwks-rsa');
 
 router.get("/getData", function(request, response, next) {
 	console.log('getData');	
-	let data = fs.readFileSync('../DBFolders.json'), folders;	
+	
+	let data = fs.readFileSync('./DBFolders.json'), folders;		
 	try
-	{
-		folders = JSON.parse(data);				
+	{		
+		if(!data.hasOwnProperty(data.entries))
+			folders = data;				
 		response.send(folders)
 	}
 	catch(err)
 	{
 		console.log(err);
-		response.send(folders);
+		response.send(err);
 	}
 });
 
@@ -37,7 +39,7 @@ const checkJwt = jwt({
 router.post("/saveData", function(request,response,next)
 {
 	let data = JSON.stringify(request.body);
-	fs.writeFile('../DBFolders.json', data, 
+	fs.writeFile('./DBFolders.json', data, 
 		function (err) 
 		{
 			if (err)

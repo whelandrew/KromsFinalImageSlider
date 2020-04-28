@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const cors = require('cors');
+const qs = require('qs');
+const app = require('../index.js');
 
 const options = {
 				'Content-Type' : 'application/json', 
-				'Authorization' : process.env.DB_AUTH
+				'Authorization' : "Bearer RvRO6h55szQAAAAAAAH2txU3jqcMgYHn-zdktTsTEKrHG39t0xdEjuUk-MxXr7Fy"
 			};
 
 router.get('/getAllFolders', function (request, response, next)
@@ -81,18 +83,15 @@ router.post('/moveFile', function(request, response, next)
 });
 
 router.post('/metaFileDataBatch', function(request, response, next)
-{
+{		
+	let data = request.body;
+	
 	axios({
 		method: 'post',
 		url: 'https://api.dropboxapi.com/2/sharing/get_file_metadata/batch',
 		data : {
-				'path': request.body,
-				'recursive': false,
-				'include_media_info': false,
-				'include_deleted': false,
-				'include_has_explicit_shared_members': false,
-				'include_mounted_folders': true,
-				'include_non_downloadable_files': false
+				'files': data,
+				'actions':[]
 			},
 		headers: options
 	})
@@ -107,12 +106,19 @@ router.post('/metaFileDataBatch', function(request, response, next)
 });
 
 router.post('/getImages', function (request, response, next)
-{  	
-	data.path = request.body.getFrom;	
+{
 	axios({
 		method: 'post',
 		url: 'https://api.dropboxapi.com/2/files/list_folder',
-		data: data,
+		data: {
+			"path": request.body.getFrom,
+			"recursive": false,
+			"include_media_info": false,
+			"include_deleted": false,
+			"include_has_explicit_shared_members": false,
+			"include_mounted_folders": true,
+			"include_non_downloadable_files": true
+		},
 		headers: options
 	})
 	 .then(function (res)

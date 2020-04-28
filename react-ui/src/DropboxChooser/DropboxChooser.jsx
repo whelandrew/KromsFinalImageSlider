@@ -123,15 +123,9 @@ class Dropbox extends React.Component {
 	  fetch('/db/getAllFolders')
 		.then( res => { return res.json(); })		
 		.then( data =>
-		{			
-			
-			if(!data.hasOwnProperty(data.entries))			
-				console.log("no files found");
-			else
-			{				
-				let folders = data.entries.filter(obj => {return obj['.tag']==='folder'});
-				this.setState({folderSet:folders});			
-			}
+		{				
+			let folders = data.entries.filter(obj => {return obj['.tag']==='folder'});
+			this.setState({folderSet:folders});						
 		}).catch(function(e) 
 		{
 			console.log(e);
@@ -153,8 +147,7 @@ class Dropbox extends React.Component {
     return (		
 		 <div className="contentWindow">					 
 			<div id="foldersBody" className='grid-container'>	
-				{	this.state.folderSet === null 
-				&& <h1> Loading... </h1>}
+				{	this.state.folderSet === null && <h1> Loading... </h1>}
 				{	this.state.folderSet != null	
 					&& <ul>
 						<div>

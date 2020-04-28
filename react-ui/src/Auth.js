@@ -9,7 +9,8 @@ class Auth {
       domain: 'dev-fm2wv99w.auth0.com',
       audience: 'https://dev-fm2wv99w.auth0.com/userinfo',
       clientID: "7oOamgAhmy2W0XAq3wRnHgCmbagollKO",
-      redirectUri: "https://evening-thicket-69000.herokuapp.com/Callback",
+      redirectUri: "http://localhost:9000/Callback",
+	  //redirectUri: "https://evening-thicket-69000.herokuapp.com/Callback",
       responseType: 'id_token',
       scope: 'openid profile'
     });
@@ -59,7 +60,8 @@ class Auth {
 
   signOut() {
     this.auth0.logout({
-      returnTo: "https://evening-thicket-69000.herokuapp.com",
+      //returnTo: "https://evening-thicket-69000.herokuapp.com",
+      returnTo: "http://localhost:9000",
       clientID: "7oOamgAhmy2W0XAq3wRnHgCmbagollKO",
     });
   }
