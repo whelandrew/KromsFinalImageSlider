@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+var fs = require('fs');
 var jwt = require('express-jwt');
 var jwksRsa = require('jwks-rsa');
 
@@ -35,8 +35,8 @@ const checkJwt = jwt({
 });
 
 router.post("/saveData", function(request,response,next)
-{		
-	let data = JSON.stringify(request.body);			
+{
+	let data = JSON.stringify(request.body);
 	fs.writeFile('./DBFolders.json', data, 
 		function (err) 
 		{
