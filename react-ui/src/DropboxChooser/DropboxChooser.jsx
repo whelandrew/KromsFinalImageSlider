@@ -35,22 +35,14 @@ class Dropbox extends React.Component {
 		try
 		{
 			const database = (await axios.get('/authRouter/getData')).data;	
-			
-			if(database.id !== undefined)
-			{
-				this.setState({database:{database}});	
-			
-				this.props.history.push({
-					pathname:'/Carousel',
-					state: {
-						database:database
-					}					
-				});
-			}
-			else
-			{
-				this.getFolderSet();
-			}
+			this.setState({database:{database}});	
+		
+			this.props.history.push({
+				pathname:'/Carousel',
+				state: {
+					database:database
+				}					
+			});
 		}
 		catch(e)
 		{
@@ -151,8 +143,9 @@ class Dropbox extends React.Component {
   }
 
   render() {
-    return (
-		<div className="contentWindow">			
+	  if(this.state.database === undefined) this.getFolderSet();
+    return (		
+		 <div className="contentWindow">					 
 			<div id="foldersBody" className='grid-container'>	
 				{	this.state.folderSet === null 
 				&& <h1> Loading... </h1>}
@@ -195,8 +188,8 @@ class Dropbox extends React.Component {
 							</div>
 						</div>
 					</div>
-			}
-		</div>
+		 }}
+		</div>		
     )
   }
 }

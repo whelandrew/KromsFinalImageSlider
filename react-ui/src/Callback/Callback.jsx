@@ -5,8 +5,16 @@ import auth0Client from '../Auth';
 class Callback extends React.Component {
   async componentDidMount() 
   {
-    await auth0Client.handleAuthentication();
-    this.props.history.replace('/');	
+	  try
+	  {
+			await auth0Client.handleAuthentication();
+			this.props.history.replace('/');	
+	  }
+	  catch(e)
+	  {
+		console.log(e);
+		this.props.history.replace('/');
+	  }
   }
 
   render() {
