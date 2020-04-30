@@ -15,33 +15,32 @@ export default class Carousel extends React.Component
 		this.getImages = this.getImages.bind(this);
 
 		this.state = {
-			images:null,			
+			images : null,			
 			sliderProps:
 			{
-				dots: false,
-				infinite: true,
-				speed: 500,
-				slidesToShow: 1,
-				slidesToScroll: 1,
-				loading: true,
-				ready: false
+				dots : false,
+				infinite : true,
+				speed : 500,
+				slidesToShow : 1,
+				slidesToScroll : 1,
+				loading : true,
+				ready : false,
+				token : null
 			}
 		}
 	}	
 	
 	async componentDidMount()
 	{
-		console.log('Carousel');		
-		
+		this.setState({token : this.props.location.state.token});
 		if(this.props.location.state.database.length < 1)
-			this.props.history.replace('/');	
+			this.props.history.push('/');	
 		else
 			this.getImages();
 	}
 	
 	rebuildSet(data, toFolder) 	
 	{
-		console.log("rebuildSet");	
 		const sendToFolder = toFolder +'/' + data.result.name;
 		const fromFolder = this.props.location.state.database.fromFolder.name + data.result.name;
 		
@@ -51,8 +50,9 @@ export default class Carousel extends React.Component
 			headers: {'Content-Type': 'application/json'},
 			body:JSON.stringify(
 			{
-				fromFolder:fromFolder,
-				toFolder:sendToFolder
+				fromFolder : fromFolder,
+				toFolder : sendToFolder,
+				token : this.props.location.state.token
 			})
 		})
 		.then( res => { return res.json(); })
@@ -72,20 +72,20 @@ export default class Carousel extends React.Component
 	}
 	
 	getImages() 
-	{		
-		console.log('getImages');	
-		
+	{	
 		fetch('/db/getImages',
 		{
 			method:'POST',
 			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({'getFrom':this.props.location.state.database.fromFolder.name}),
+			body: JSON.stringify(
+				{ 					
+					getFrom : this.props.location.state.database.fromFolder.name, 
+					token : this.props.location.state.token					
+				})
 		})
 		.then( res => { return res.json(); })
 		.then( data => 
 		{		
-			console.log('batchMetaData');
-			
 			const cap = 100;
 			if(data.length > cap) data = data.slice(0,cap);
 			
@@ -95,7 +95,9 @@ export default class Carousel extends React.Component
 			fetch('/db/metaFileDataBatch',
 			{
 				method:'POST',
-				body: JSON.stringify(idArr),
+				body: JSON.stringify({ 
+							files : idArr, 
+							token : this.props.location.state.token }),
 				headers: {
 					'Content-Type': 'application/json'
 				}
@@ -104,8 +106,7 @@ export default class Carousel extends React.Component
 			.then( data => 
 			{				
 				if(data.length > 0 )
-				{
-					//data.map ((item,key)=>item.result.preview_url=item.result.preview_url.replace('dl=0','dl=1'));
+				{					
 					this.setState({images:data});				
 					this.setState({ready:true});
 				}
@@ -121,14 +122,9 @@ export default class Carousel extends React.Component
 	{
 		return (			
 			<div>
-				{	this.state.ready === false && <h1 key="loading" id="loading">Loading...</h1> }
-				{	this.state.ready === true
-					&& <div key='carousel' id='carousel'>							
-						<div key="carouselTopBar" id="carouselTopBar" className='grid-container'>		
-							<p key="grid1" className="grid-item">Save to</p>
-							<p key="grid2"className="grid-item">Get from</p>
-							<p key="grid3"className="grid-item">Move to</p>
-						</div>
+				{	this.state.images === null && <h1 key="loading" id="loading">Loading...</h1> }
+				{	this.state.images !== null &&
+					<div key='carousel' id='carousel'>		
 						<Slider key="slider" {...this.state.sliderProps} id='SliderMain'>								
 							{this.state.images.map((item,key)=>									
 							<div id="item" key={item.id + item.name}>

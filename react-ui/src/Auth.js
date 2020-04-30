@@ -1,3 +1,98 @@
+import React from 'react';
+
+
+export default class Auth extends React.Component
+{
+	constructor(props)
+	{
+		super(props);
+		
+		this.signOut = this.signOut.bind(this);
+		this.signIn = this.signIn.bind(this);	
+	}	
+	
+	componentDidMount()
+	{
+		const { clientID } = 'h9fot2c8bxz7gcg';
+	}
+	
+	signIn()
+	{
+		fetch('https://www.dropbox.com/oauth2/authorize?client_id=h9fot2c8bxz7gcg&response_type=token&redirect_uri=http://localhost:9000/Callback')
+		.then(data =>
+		{
+			console.log(data);
+		});
+	}
+	
+	signOut()
+	{
+		
+	}
+}
+
+
+
+/*import React from 'react';
+
+class Auth
+{
+	constructor()
+	{
+		this.silentAuth = this.silentAuth.bind(this);
+		this.isAuthenticated = this.isAuthenticated.bind(this);
+		this.signOut = this.signOut.bind(this);
+		this.getProfile = this.getProfile.bind(this);
+		this.signIn = this.signIn.bind(this);
+		
+		this.state = 
+		{
+			authorized :false,
+			token:""
+		}
+	}
+	
+	async componentDidMount() 
+	{		
+	}
+	
+	silentAuth()
+	{
+	}
+	
+	isAuthenticated()
+	{
+		return this.state.authorized;
+	}
+	
+	signIn()
+	{		
+		console.log('signIn');
+		fetch('https://www.dropbox.com/oauth2/authorize?client_id=h9fot2c8bxz7gcg&response_type=code&redirect_uri=http://localhost:9000/Callback')
+		.then( response => response.text() )
+		.then(data =>
+		{
+			console.log(data);
+		})
+		.catch(err => {
+			console.log(err);
+		});
+	}	
+	
+	signOut()
+	{
+	}
+	
+	getProfile()
+	{
+	}
+}
+
+const dbAuth = new Auth();
+
+export default dbAuth;
+
+/*
 import auth0 from 'auth0-js';
 require('dotenv').config();
 
@@ -9,7 +104,8 @@ class Auth {
       domain: 'dev-fm2wv99w.auth0.com',
       audience: 'https://dev-fm2wv99w.auth0.com/userinfo',
       clientID: "7oOamgAhmy2W0XAq3wRnHgCmbagollKO",
-      redirectUri: "https://evening-thicket-69000.herokuapp.com/Callback",
+      redirectUri: "http://localhost:9000/Callback",
+      //redirectUri: "https://evening-thicket-69000.herokuapp.com/Callback",
       responseType: 'id_token',
       scope: 'openid profile'
     });
@@ -59,7 +155,8 @@ class Auth {
 
   signOut() {
     this.auth0.logout({
-      returnTo: "https://evening-thicket-69000.herokuapp.com",      
+      //returnTo: "https://evening-thicket-69000.herokuapp.com",      
+      returnTo: "http://localhost:9000",      
       clientID: "7oOamgAhmy2W0XAq3wRnHgCmbagollKO",
     });
   }
@@ -78,3 +175,4 @@ class Auth {
 const auth0Client = new Auth();
 
 export default auth0Client;
+*/

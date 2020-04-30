@@ -5,12 +5,7 @@ const cors = require('cors');
 const qs = require('qs');
 const app = require('../index.js');
 
-const options = {
-				'Content-Type' : 'application/json', 
-				'Authorization' : "Bearer RvRO6h55szQAAAAAAAH2txU3jqcMgYHn-zdktTsTEKrHG39t0xdEjuUk-MxXr7Fy"
-			};
-
-router.get('/getAllFolders', function (request, response, next)
+router.post('/getAllFolders', function (request, response, next)
 {  		
 	console.log('getAllFolders');
 	axios({
@@ -25,7 +20,10 @@ router.get('/getAllFolders', function (request, response, next)
 				'include_mounted_folders': true,
 				'include_non_downloadable_files': false
 			},
-		headers: options
+		headers: {
+				'Content-Type' : 'application/json', 
+				'Authorization' : request.body.token
+			}
 	})
 	 .then(function (res)
 	 {
@@ -37,16 +35,20 @@ router.get('/getAllFolders', function (request, response, next)
 });	
 
 router.post('/metaFileData', function(request, response, next)
-{
-	let data = {
-			file : request.body.shared_folder_id,
-			actions : []
-		};
+{	
+	console.log('metaFileData');
 	axios({
 		method: 'post',
 		url: 'https://api.dropboxapi.com/2/sharing/get_file_metadata',
-		data : data,
-		headers: options
+		data : 
+		{
+			file : request.body.shared_folder_id,
+			actions : []
+		},
+		headers: {
+				'Content-Type' : 'application/json', 
+				'Authorization' : request.body.token
+			}
 	})
 	.then(function (res)
 	{	
@@ -60,6 +62,7 @@ router.post('/metaFileData', function(request, response, next)
 
 router.post('/moveFile', function(request, response, next)
 {	
+	console.log('moveFile');
 	axios({
 		method: 'post',
 		url: 'https://api.dropboxapi.com/2/files/move_v2',
@@ -70,7 +73,10 @@ router.post('/moveFile', function(request, response, next)
 		autorename : false,
 		allow_ownership_transfer : false
 	},
-		headers: options
+		headers: {
+				'Content-Type' : 'application/json', 
+				'Authorization' : request.body.token
+			}
 	})
 	.then(function (res)
 	{
@@ -84,16 +90,18 @@ router.post('/moveFile', function(request, response, next)
 
 router.post('/metaFileDataBatch', function(request, response, next)
 {		
-	let data = request.body;
-	
+	console.log('metaFileDataBatch');
 	axios({
 		method: 'post',
 		url: 'https://api.dropboxapi.com/2/sharing/get_file_metadata/batch',
 		data : {
-				'files': data,
+				'files': request.body.files,
 				'actions':[]
 			},
-		headers: options
+		headers: {
+				'Content-Type' : 'application/json', 
+				'Authorization' : request.body.token
+			}
 	})
 	.then(function (res)
 	{
@@ -107,6 +115,7 @@ router.post('/metaFileDataBatch', function(request, response, next)
 
 router.post('/getImages', function (request, response, next)
 {
+	console.log('getImages');
 	axios({
 		method: 'post',
 		url: 'https://api.dropboxapi.com/2/files/list_folder',
@@ -119,7 +128,10 @@ router.post('/getImages', function (request, response, next)
 			"include_mounted_folders": true,
 			"include_non_downloadable_files": true
 		},
-		headers: options
+		headers: {
+				'Content-Type' : 'application/json', 
+				'Authorization' : request.body.token
+			}
 	})
 	 .then(function (res)
 	 {
@@ -128,7 +140,7 @@ router.post('/getImages', function (request, response, next)
 	.catch(function (error) {
 		console.log(error);
 		response.status(500).send(error);
-	});	
+	});		
 });	
 
 module.exports = router;

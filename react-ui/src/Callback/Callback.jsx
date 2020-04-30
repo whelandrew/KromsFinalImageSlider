@@ -1,27 +1,35 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import auth0Client from '../Auth';
 
 class Callback extends React.Component {
-  async componentDidMount() 
-  {
-	  try
-	  {
-			await auth0Client.handleAuthentication();
-			this.props.history.replace('/');	
-	  }
-	  catch(e)
-	  {
-		console.log(e);
-		this.props.history.replace('/');
-	  }
-  }
+	constructor(props)
+	{
+		super(props)
+		this.state=
+		{
+			token:null
+		}
+	}
+	
+	async componentDidMount() 
+	{
+		try
+		{		
+			let hash = this.props.location.hash.replace('#access_token=','');			
+			let auth_token = 'Bearer ' + hash.substr(0, hash.indexOf('&'));			
+			this.props.history.replace('/',{token:auth_token});		
+		}
+		catch(e)
+		{
+			console.log(e);
+			this.props.history.push('/');
+		}
+	}
 
-  render() {
-    return (
-      <p>Loading profile...</p>
-    );
-  }
+	render() 
+	{
+		return (<p>Loading profile...</p>);
+	}
 }
 
 export default withRouter(Callback);
