@@ -23,7 +23,7 @@ export default class NavBar extends React.Component {
 	
 	signIn()
 	{
-		window.open('https://www.dropbox.com/oauth2/authorize?client_id=h9fot2c8bxz7gcg&response_type=token&redirect_uri=http://localhost:9000/Callback', '_self');
+		window.open('https://www.dropbox.com/oauth2/authorize?client_id=h9fot2c8bxz7gcg&response_type=token&redirect_uri=https://evening-thicket-69000.herokuapp.com/Callback', '_self');
 	}
 	
 	render()
