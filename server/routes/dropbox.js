@@ -5,9 +5,60 @@ const cors = require('cors');
 const qs = require('qs');
 const app = require('../index.js');
 
+router.post('/getToken', function(request, response)
+{
+	console.log('/getToken');	
+	axios({
+		method : 'post',
+		url : 'https://api.dropboxapi.com/oauth2/token',
+		params : 
+		{
+			code : request.body.code,
+			grant_type : 'authorization_code',
+			redirect_uri : 'http://localhost:9000/loggedIn',
+			client_id : 'h9fot2c8bxz7gcg',
+			client_secret : '8and8ga191ii1kp'
+		}
+	})
+	.then(function(res)
+	{
+		response.json(res.data);
+	})
+	.catch(function(error)
+	{
+		console.log(error);
+		response.status(500).send(error);
+	});
+});
+
+router.post('/profile', function(request, response, next)
+{	
+	console.log('profile');
+	axios({
+		method: 'post',
+		url: 'https://api.dropboxapi.com/2/users/get_account',
+		data : 
+		{
+			account_id : "dbid:" + request.body
+		},
+		headers: {
+				'Content-Type' : 'application/json', 
+				'Authorization' : 'Bearer ' + request.body
+			}
+	})
+	.then(function (res)
+	{	
+		response.send(res.data);		
+	})
+	.catch(function (error) {
+		console.log(error);
+		response.status(500).send(error);
+	});
+});
+
 router.post('/getAllFolders', function (request, response, next)
 {  		
-	console.log('getAllFolders');
+	console.log('getAllFolders');	
 	axios({
 		method: 'post',
 		url: 'https://api.dropboxapi.com/2/files/list_folder',
@@ -22,14 +73,15 @@ router.post('/getAllFolders', function (request, response, next)
 			},
 		headers: {
 				'Content-Type' : 'application/json', 
-				'Authorization' : request.body.token
+				'Authorization' : request.body.bearer
 			}
 	})
 	 .then(function (res)
-	 {
+	 {		
 		response.send(JSON.stringify(res.data));				
 	})
 	.catch(function (error) {		
+		console.log(error);
 		response.status(500).send(error);
 	});	
 });	
@@ -90,12 +142,14 @@ router.post('/moveFile', function(request, response, next)
 
 router.post('/metaFileDataBatch', function(request, response, next)
 {		
+	let files = JSON.parse(request.body.files);
+
 	console.log('metaFileDataBatch');
 	axios({
 		method: 'post',
 		url: 'https://api.dropboxapi.com/2/sharing/get_file_metadata/batch',
 		data : {
-				'files': request.body.files,
+				'files': files,
 				'actions':[]
 			},
 		headers: {

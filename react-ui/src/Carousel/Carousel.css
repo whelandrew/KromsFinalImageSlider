@@ -7,7 +7,15 @@
 #carousel 
 {
 	text-align: center;
-	margin-top:100px;
+}
+
+#carousel 
+{	
+}
+
+#imageDiv
+{
+	
 }
 
 #yesButton
@@ -22,6 +30,10 @@
 	width: 225px;
     height: 225px;
 	display:inline-block;
+}
+
+#item
+{
 }
 
 #item above
@@ -54,6 +66,7 @@
 
 .grid-container {
   display: grid;
+  grid-template-columns: auto auto auto;
   font-size: 25px;
 }
 

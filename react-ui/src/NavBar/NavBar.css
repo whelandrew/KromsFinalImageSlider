@@ -3,12 +3,7 @@
 	font-family:courier,arial,helvetica;
 	padding-bottom: 0px;
 	padding-top:0px;
-	color: white;
-}
-
-#navbar a
-{
-	
+	text-align:left;
 }
 
 #navbar img 
@@ -27,5 +22,7 @@
 #centerSignInButton
 {
 	text-align:center;
-	padding-top: 50px;
+	display: flex;
+	margin-top:50px;
+	justify-content: center;
 }

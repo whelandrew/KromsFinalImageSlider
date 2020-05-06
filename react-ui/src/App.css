@@ -37,4 +37,48 @@
   }
 }
 
+#contentWindow
+{
+	margin-top: 50px;
+}
+
+h1
+{
+	text-align:center;
+}
+
+#navbar 
+{
+	font-family:courier,arial,helvetica;
+	padding-bottom: 0px;
+	padding-top:0px;
+	text-align:left;
+}
+
+#navbar img 
+{
+	width:35px;
+}
+
+#starterButtons
+{
+	outline-style:solid;
+	outline-color:#375a7f;
+	padding:10px;
+	text-align: center;
+}
+
+#centerSignInButton
+{
+	text-align:center;
+	display: flex;
+	margin-top:50px;
+	justify-content: center;
+}
+
+#signIn
+{
+}
+
+
 
