@@ -107,11 +107,8 @@ app.use(session({
 	secret: 'donotforgetme24601',
 	resave: false,
 	saveUninitialized: true,
-	cookie: { secure: true },
-	store: new MongoStore({
-		url:'mongodb+srv://TheKrominator:4OttarzPlay@cluster0-0xqgl.mongodb.net/kromsimageslider?retryWrites=true&w=majority',
-		autoRemove: 'native'
-	})
+	cookie: { secure: true }
+	
 }))
   
 app.use(passport.initialize());
