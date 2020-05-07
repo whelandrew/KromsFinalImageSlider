@@ -38,5 +38,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:9000"
+  "proxy": "https://evening-thicket-69000.herokuapp.com/"
 }

@@ -15,7 +15,7 @@ router.post('/getToken', function(request, response)
 		{
 			code : request.body.code,
 			grant_type : 'authorization_code',
-			redirect_uri : 'http://localhost:9000/loggedIn',
+			redirect_uri : 'https://evening-thicket-69000.herokuapp.com/loggedIn',
 			client_id : 'h9fot2c8bxz7gcg',
 			client_secret : '8and8ga191ii1kp'
 		}
