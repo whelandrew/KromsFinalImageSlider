@@ -107,8 +107,8 @@ app.use(session({
 	secret: 'donotforgetme24601',
 	resave: false,
 	saveUninitialized: true,
-	cookie: { secure: true }
-	
+	cookie: { secure: true },
+	store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
   
 app.use(passport.initialize());
