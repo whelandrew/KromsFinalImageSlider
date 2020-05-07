@@ -17,7 +17,8 @@ var dbRouter 		= require('./routes/dropbox');
 var authRouter		= require('./routes/auth');
 
 var isDev = process.env.NODE_ENV !== 'production';
-var PORT = normalizePort(process.env.PORT || '9000');
+//var PORT = normalizePort(process.env.PORT || '9000');
+var PORT = 'https://evening-thicket-69000.herokuapp.com/';
 var session      = require('express-session');
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url,{ useNewUrlParser: true, useUnifiedTopology: true });

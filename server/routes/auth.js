@@ -30,9 +30,7 @@ router.get('/:id', getUser, (req, res) =>
 //create one
 router.post('/', async (req, res) =>
 {	
-	console.log('post');
-	console.log(req.body);
-	
+	console.log('post');	
 	const user = new User({
 		account_id: req.body.account_id,
 		bearer: req.body.bearer,
