@@ -51,7 +51,7 @@ class Dropbox extends React.Component {
   {
 	console.log('saveFolders');	
 	
-	fetch('http://localhost:9000/db/metaFileData',
+	fetch('/db/metaFileData',
 	{
 		method: 'POST',
 		headers: {'Content-Type': 'application/json'},
@@ -91,7 +91,7 @@ class Dropbox extends React.Component {
   getFolderSet()
   {
 	  console.log("getFolderSet");	  
-	  fetch('http://localhost:9000/db/getAllFolders',
+	  fetch('/db/getAllFolders',
 		{
 				method:'POST',
 				headers: {'Content-Type': 'application/json'},
