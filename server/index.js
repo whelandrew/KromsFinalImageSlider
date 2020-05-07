@@ -17,7 +17,6 @@ var dbRouter 		= require('./routes/dropbox');
 var authRouter		= require('./routes/auth');
 
 var isDev = process.env.NODE_ENV !== 'production';
-//var PORT = 'https://evening-thicket-69000.herokuapp.com/';
 const PORT = process.env.PORT || 9000;
 var session = require('express-session');
 var configDB = require('./config/database.js');
