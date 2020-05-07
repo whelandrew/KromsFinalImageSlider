@@ -3,7 +3,7 @@ import {Route, withRouter} from 'react-router-dom';
 import './App.css';
 import logo from './Assets/logo.png';
 
-import Callback from './Callback';
+import Callback from './Callback/Callback';
 import Dropbox from './DropboxChooser/DropboxChooser';
 import Carousel from './Carousel/Carousel';
 
