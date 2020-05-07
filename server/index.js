@@ -17,9 +17,9 @@ var dbRouter 		= require('./routes/dropbox');
 var authRouter		= require('./routes/auth');
 
 var isDev = process.env.NODE_ENV !== 'production';
-//var PORT = normalizePort(process.env.PORT || '9000');
-var PORT = 'https://evening-thicket-69000.herokuapp.com/';
-var session      = require('express-session');
+//var PORT = 'https://evening-thicket-69000.herokuapp.com/';
+const PORT = process.env.PORT || 9000;
+var session = require('express-session');
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url,{ useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -102,12 +102,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
 app.use(cors());
 
+const MongoStore = require('connect-mongo')(session);
 app.use(session({
-  secret: 'donotforgetmyname24601',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+	secret: 'donotforgetme24601',
+	resave: false,
+	saveUninitialized: true,
+	cookie: { secure: true },
+	store: new MongoStore({
+		url:'mongodb+srv://TheKrominator:4OttarzPlay@cluster0-0xqgl.mongodb.net/kromsimageslider?retryWrites=true&w=majority',
+		autoRemove: 'native'
+	})
 }))
+  
 app.use(passport.initialize());
 app.use(passport.session());
 
