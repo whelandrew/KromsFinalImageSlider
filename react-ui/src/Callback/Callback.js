@@ -43,7 +43,7 @@ class Callback extends React.Component
 				if(Array.isArray(checker))
 					checker = response[0];
 				
-				console.log(response);
+				console.log(checker);
 				if(!'_id' in checker)
 				{
 					//begin creating new account
