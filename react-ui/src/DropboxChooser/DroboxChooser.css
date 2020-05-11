@@ -3,8 +3,7 @@
   display: grid;
   grid-template-columns: auto auto auto;
   background-color: #375a7f ;  
-  border: 1px solid black;
-  
+  border: 1px solid black;  
 }
 
 #header .grid-item {  
@@ -12,6 +11,48 @@
   text-align: center;    
   border-left: 1px solid black;	
   border-right: 1px solid black;	  
+}
+
+tbody {
+  display: flex;
+  width: 800px;
+  position: relative;
+  align-items: stretch;
+  border: 1px solid black;  
+}
+
+tr 
+{
+  flex-basis: 33.33333333%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 5px 10px;  
+}
+
+tr + tr 
+{
+	border-left: 1px solid black;
+}
+
+td button
+{
+  display:block;
+  width:100%;
+}
+
+th, td 
+{
+  flex-basis: 100%;
+  text-align: center;
+  display: flex;
+  padding: 2px;
+  
+}
+
+th 
+{
+  font-weight: bold;
 }
 
 .grid-item-empty-cells

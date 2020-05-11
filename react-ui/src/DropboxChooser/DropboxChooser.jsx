@@ -129,26 +129,23 @@ class Dropbox extends React.Component {
 		<div className="contentWindow">		
 		{	this.state.folderSet != null &&
 			<table>
-				<thead>
-					<tr>
-						<th scope='row'><h1>Choose A Folder To Keep Files</h1></th>
-						<th scope='row'><h1>Choose A Folder To Move Unwanted Files Into</h1></th>
-					</tr>
-				</thead>
 				<tbody>
 					<tr>
-						{this.state.folderSet.map((item,key)=>								
+					  <th><h1>Choose A Folder To Keep Files</h1></th>
+					  {this.state.folderSet.map((item,key)=>								
 							<td key={item.id}>
 								<button className="grid-item btn btn-info" name={item.id} id={item.id} value={JSON.stringify(item)} onClick={this.setSaveToFolder}>{item.name}
 								</button>
 							</td>)}
 					</tr>
 					<tr>
-						{this.state.folderSet.map((item,key)=>
+					  <th><h1>Choose A Folder To Move Unwanted Files Into</h1></th>
+					  {this.state.folderSet.map((item,key)=>
 								<td key={item.id}>
 								<button className="grid-item btn btn-warning" name={item.id} id={item.id} value={JSON.stringify(item)} onClick={this.setNoFolder}>{item.name}</button>							
 							</td>)}
 					</tr>
+					
 				</tbody>
 			</table>
 		}
