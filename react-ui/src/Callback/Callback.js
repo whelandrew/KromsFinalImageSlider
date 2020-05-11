@@ -36,10 +36,10 @@ class Callback extends React.Component
 			
 			//find out if account already exists
 			fetch('/auth/?id='+res.account_id)
-			.then(res => {return res.json()})
-			.then(res =>
+			.then(reponse => {return res.json()})
+			.then(reponse =>
 			{				
-				if(!'bearer' in res[0])
+				if(!'_id' in reponse)
 				{
 					//begin creating new account
 					this.props.history.push({pathname: '/setfolders',state:this.state});
@@ -47,7 +47,7 @@ class Callback extends React.Component
 				else
 				{
 					//send account info to Carousel
-					this.props.history.push({pathname:'/Carousel',state: {accountData:res[0]}});
+					this.props.history.push({pathname:'/Carousel',state: {accountData:reponse}});
 				}
 				
 			});
