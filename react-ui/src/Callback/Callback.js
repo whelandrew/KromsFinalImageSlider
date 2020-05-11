@@ -36,7 +36,7 @@ class Callback extends React.Component
 			
 			//find out if account already exists
 			fetch('/auth/?id='+res.account_id)
-			.then(reponse => {return res.json()})
+			.then(reponse => {return response.json()})
 			.then(reponse =>
 			{				
 				if(!'_id' in reponse)
