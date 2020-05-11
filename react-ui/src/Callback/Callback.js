@@ -39,7 +39,12 @@ class Callback extends React.Component
 			.then(response => {return response.json()})
 			.then(response =>
 			{				
-				if('_id' in response===false)
+				let checker = response;
+				if(checker.length > 0)
+					checker = response[0];
+				
+				console.log(response);
+				if(!'_id' in checker)
 				{
 					//begin creating new account
 					this.props.history.push({pathname: '/setfolders',state:this.state});
@@ -47,7 +52,7 @@ class Callback extends React.Component
 				else
 				{
 					//send account info to Carousel
-					this.props.history.push({pathname:'/Carousel',state: {accountData:response}});
+					this.props.history.push({pathname:'/Carousel',state: {accountData:checker}});
 				}
 				
 			});
