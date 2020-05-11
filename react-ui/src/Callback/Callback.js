@@ -39,7 +39,7 @@ class Callback extends React.Component
 			.then(res => {return res.json()})
 			.then(res =>
 			{				
-				if(res.length < 1)
+				if('access_token' in res)
 				{
 					//begin creating new account
 					this.props.history.push({pathname: '/setfolders',state:this.state});

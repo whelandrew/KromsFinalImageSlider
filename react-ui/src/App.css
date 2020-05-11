@@ -76,9 +76,8 @@ h1
 	justify-content: center;
 }
 
-#signIn
+#centerSignInButton button
 {
+	background-color: #0061fe;
+	border-color: #0061fe;
 }
-
-
-

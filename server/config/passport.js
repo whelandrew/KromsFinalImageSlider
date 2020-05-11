@@ -30,7 +30,8 @@ module.exports = function(passport) {
 		apiVersion: '2',
 		clientID: 'h9fot2c8bxz7gcg',
 		clientSecret: '8and8ga191ii1kp',
-		callbackURL: "https://evening-thicket-69000.herokuapp.com/loggedIn"		
+		callbackURL: "http://localhost:9000/loggedIn"		
+		//callbackURL: "https://evening-thicket-69000.herokuapp.com/loggedIn"		
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 		User.findOrCreate({ providerId: profile.id }, function (err, user) {

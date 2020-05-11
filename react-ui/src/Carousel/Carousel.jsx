@@ -59,7 +59,11 @@ export default class Carousel extends React.Component
 					if(list[i].result.name === file.name)
 						list.splice(i,1);
 					
-			this.setState({images:list});			
+			//refill list if empty
+			if(list.length<1)
+				this.getImages();
+			else
+				this.setState({images:list});			
 			
 		}).catch((error) => 
 		{
