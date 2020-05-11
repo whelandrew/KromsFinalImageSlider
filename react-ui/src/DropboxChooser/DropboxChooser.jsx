@@ -126,7 +126,8 @@ class Dropbox extends React.Component {
 
   render() {
     return (
-		<div className="contentWindow">			
+		<div className="contentWindow">		
+		{	this.state.folderSet != null &&
 			<table>
 				<thead>
 					<tr>
@@ -150,26 +151,27 @@ class Dropbox extends React.Component {
 					</tr>
 				</tbody>
 			</table>
-			{	this.state.saveTo != null
-				&& this.state.noFolder != null	
-				&& <div id='modal' className='modal'>
-						<div className='modal-content'>
-							<div>
-								<span>Select one file from the folder that you want to get images from.</span>
-								<DropboxChooser 
-									id="chooser"
-									appKey={this.state.APP_KEY}
-									success={files => this.saveFolders(files)}
-									cancel={() => this.onCancel()}
-									multiselect={false} 
-									folderselect={true}
-									extensions={['images']}>
-									<button size="lg" className='btn btn-info'><img src={icon} alt="Find A Folder In Dropbpx"/>Dropbox Chooser</button>				
-								</DropboxChooser>
-							</div>
+		}
+		{	this.state.saveTo != null
+			&& this.state.noFolder != null	
+			&& <div id='modal' className='modal'>
+					<div className='modal-content'>
+						<div>
+							<span>Select one file from the folder that you want to get images from.</span>
+							<DropboxChooser 
+								id="chooser"
+								appKey={this.state.APP_KEY}
+								success={files => this.saveFolders(files)}
+								cancel={() => this.onCancel()}
+								multiselect={false} 
+								folderselect={true}
+								extensions={['images']}>
+								<button size="lg" className='btn btn-info'><img src={icon} alt="Find A Folder In Dropbpx"/>Dropbox Chooser</button>				
+							</DropboxChooser>
 						</div>
 					</div>
-			}
+				</div>
+		}
 		</div>
     )
   }
