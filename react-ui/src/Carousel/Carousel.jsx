@@ -38,7 +38,7 @@ export default class Carousel extends React.Component
 	{
 		console.log("rebuildSet");	
 		const sendToFolder = toFolder +'/' + data.result.name;
-		const fromFolder = this.props.location.state.accountData[0].fromFolder + data.result.name;
+		const fromFolder = this.props.location.state.accountData.fromFolder + data.result.name;
 		
 		fetch('/db/moveFile', 
 		{
@@ -48,7 +48,7 @@ export default class Carousel extends React.Component
 			{
 				fromFolder:fromFolder,
 				toFolder:sendToFolder,
-				token:this.props.location.state.accountData[0].bearer
+				token:this.props.location.state.accountData.bearer
 			})
 		})
 		.then( res => { return res.json(); })
@@ -80,8 +80,8 @@ export default class Carousel extends React.Component
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify(
 			{
-				getFrom:this.props.location.state.accountData[0].fromFolder,
-				token:this.props.location.state.accountData[0].bearer
+				getFrom:this.props.location.state.accountData.fromFolder,
+				token:this.props.location.state.accountData.bearer
 			}),
 		})
 		.then( res => { return res.json(); })
@@ -103,7 +103,7 @@ export default class Carousel extends React.Component
 				body: JSON.stringify(
 					{
 						files:idArr,
-						token:this.props.location.state.accountData[0].bearer
+						token:this.props.location.state.accountData.bearer
 					}
 				)
 			})
@@ -135,7 +135,7 @@ export default class Carousel extends React.Component
 									<h3 id="caption" key='{item.id}h3'>{item.result.path_display}</h3>
 										<div className="row" key='{item.id}Row'>
 											<div className="column" key='{item.id}yesCol'>
-												<button id='yesButton' className="btn btn-success" key='{item.id}yesButton' onClick={()=>this.rebuildSet(item, this.props.location.state.accountData[0].toFolder)}>
+												<button id='yesButton' className="btn btn-success" key='{item.id}yesButton' onClick={()=>this.rebuildSet(item, this.props.location.state.accountData.toFolder)}>
 													<HeartFill 
 														key='{item.id}Like'
 														alt="Like"
@@ -144,7 +144,7 @@ export default class Carousel extends React.Component
 														"fill":"white"}}>
 													</HeartFill>
 													<br key='{item.id}yesbr'/>
-													<h4 key='{item.id}yesFolder'>{this.props.location.state.accountData[0].toFolder}</h4>
+													<h4 key='{item.id}yesFolder'>{this.props.location.state.accountData.toFolder}</h4>
 													{document.onkeydown = this.checkKey}
 												</button>
 												</div>
@@ -154,7 +154,7 @@ export default class Carousel extends React.Component
 												</button>
 												</div>
 												<div className="column" key='{item.id}noCol'>
-												<button id='noButton' className="btn btn-danger" key='{item.id}noButton' onClick={()=>this.rebuildSet(item, this.props.location.state.accountData[0].noFolder)}>
+												<button id='noButton' className="btn btn-danger" key='{item.id}noButton' onClick={()=>this.rebuildSet(item, this.props.location.state.accountData.noFolder)}>
 													<XSquareFill 
 														key='{item.id}Dislike'
 														alt="Dislike"
@@ -163,7 +163,7 @@ export default class Carousel extends React.Component
 														"fill":"white"}}>
 													</XSquareFill>
 													<br key='{item.id}nobr'/>
-													<h4 className='nofolder' key='{item.id}noFolder'>{this.props.location.state.accountData[0].noFolder}</h4>
+													<h4 className='nofolder' key='{item.id}noFolder'>{this.props.location.state.accountData.noFolder}</h4>
 												</button>
 											</div>
 										</div>
