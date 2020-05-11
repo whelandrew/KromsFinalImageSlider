@@ -40,7 +40,7 @@ class Callback extends React.Component
 			.then(response =>
 			{				
 				let checker = response;
-				if(checker.length > 0)
+				if(Array.isArray(checker))
 					checker = response[0];
 				
 				console.log(response);
