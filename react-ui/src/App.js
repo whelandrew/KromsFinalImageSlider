@@ -30,7 +30,7 @@ class App extends React.Component
 				<div id="signIn"> 
 					<h1>Kroms Image Slider</h1> 
 					<a href='/dropboxLogin' id="centerSignInButton"> 
-						<button className="btn"><img src={dbIcon}/> Start Here</button> 
+						<button className="btn"><img src={dbIcon} alt=""/> Start Here</button> 
 					</a> 
 				</div>
 			}
