@@ -39,7 +39,7 @@ class Callback extends React.Component
 			.then(res => {return res.json()})
 			.then(res =>
 			{				
-				if('access_token' in res)
+				if('access_token' in res[0])
 				{
 					//begin creating new account
 					this.props.history.push({pathname: '/setfolders',state:this.state});
@@ -47,7 +47,7 @@ class Callback extends React.Component
 				else
 				{
 					//send account info to Carousel
-					this.props.history.push({pathname:'/Carousel',state: {accountData:res}});
+					this.props.history.push({pathname:'/Carousel',state: {accountData:res[0]}});
 				}
 				
 			});
