@@ -45,10 +45,7 @@ class Callback extends React.Component
 				
 				let newAccount = true;
 				if(checker !== undefined)
-				{
 					newAccount = (checker.bearer.indexOf(bearer)<0);
-					newAccount = ('_id' in checker===false);
-				}		
 				
 				if(newAccount)
 				{

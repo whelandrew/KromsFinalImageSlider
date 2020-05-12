@@ -130,7 +130,7 @@ class Dropbox extends React.Component {
 		{	this.state.folderSet != null &&
 			<div className="row">
 				<div className="column">
-					<h3>Choose A Folder To Keep Files</h3>
+					<p>Choose A Folder To Keep Files</p>
 					{this.state.folderSet.map((item,key)=>								
 						<div key={item.id}>
 							<button className="grid-item btn btn-info" name={item.id} id={item.id} value={JSON.stringify(item)} onClick={this.setSaveToFolder}>{item.name}</button>
@@ -138,7 +138,7 @@ class Dropbox extends React.Component {
 					}
 				</div>
 				<div className="column">
-					<h3>Choose A Folder To Move Unwanted Files Into</h3> 
+					<p>Choose A Folder To Move Unwanted Files Into</p> 
 					{this.state.folderSet.map((item,key)=>
 						<div key={item.id}>
 							<button className="grid-item btn btn-warning" name={item.id} id={item.id} value={JSON.stringify(item)} onClick={this.setNoFolder}>{item.name}</button>							
