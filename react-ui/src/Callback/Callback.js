@@ -45,7 +45,7 @@ class Callback extends React.Component
 				{
 					if(response[i].account_id === this.state.account_id)
 					{
-						checker = i;
+						checker = response[i];
 						newAccount = false;
 						break;
 					}
