@@ -39,13 +39,20 @@ class Callback extends React.Component
 			.then(response => {return response.json()})
 			.then(response =>
 			{				
-				let checker = response;
-				if(Array.isArray(checker))
-					checker = response[0];
-				
+				//let checker = response;
+				//if(Array.isArray(checker))
+				//	checker = response[0];
+				let checker=response;
 				let newAccount = true;
-				if(checker !== undefined)
-					newAccount = (checker.bearer.indexOf(bearer)<0);
+				for(let i in response)
+				{
+					if(i.bearer.indexOf(bearer) !== -1)
+					{
+						checker = i;
+						newAccount = false;
+						break;
+					}
+				}
 				
 				if(newAccount)
 				{
