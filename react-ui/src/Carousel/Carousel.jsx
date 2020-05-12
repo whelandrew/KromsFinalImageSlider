@@ -110,6 +110,10 @@ export default class Carousel extends React.Component
 			.then( res => { return res.json(); })
 			.then( data => 
 			{				
+				for(let i in data)
+				{
+					console.log(data[i].result.preview_url)
+				}
 				this.setState({images:data});				
 			});		
 		});
