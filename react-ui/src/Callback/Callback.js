@@ -43,7 +43,12 @@ class Callback extends React.Component
 				if(Array.isArray(checker))
 					checker = response[0];
 				
-				let newAccount = (checker === undefined || !'_id' in checker);
+				let newAccount = true;
+				if(checker !== undefined)
+				{
+					newAccount = (checker.bearer.indexOf(bearer)<0);
+					newAccount = ('_id' in checker===false);
+				}		
 				
 				if(newAccount)
 				{
