@@ -46,7 +46,7 @@ class Callback extends React.Component
 				let newAccount = true;
 				for(let i in response)
 				{
-					if(response[i].bearer.indexOf(bearer) !== -1)
+					if(response[i].bearer === bearer)
 					{
 						checker = i;
 						newAccount = false;
