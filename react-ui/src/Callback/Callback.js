@@ -43,8 +43,9 @@ class Callback extends React.Component
 				if(Array.isArray(checker))
 					checker = response[0];
 				
-				console.log(checker);
-				if(!'_id' in checker)
+				let newAccount = (checker != undefined && !'_id' in checker);
+				
+				if(newAccount)
 				{
 					//begin creating new account
 					this.props.history.push({pathname: '/setfolders',state:this.state});
