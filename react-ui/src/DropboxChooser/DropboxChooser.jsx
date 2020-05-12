@@ -128,26 +128,24 @@ class Dropbox extends React.Component {
     return (
 		<div className="contentWindow">		
 		{	this.state.folderSet != null &&
-			<table>
-				<tbody>
-					<tr>
-					  <th><h1>Choose A Folder To Keep Files</h1></th>
-					  {this.state.folderSet.map((item,key)=>								
-							<td key={item.id}>
-								<button className="grid-item btn btn-info" name={item.id} id={item.id} value={JSON.stringify(item)} onClick={this.setSaveToFolder}>{item.name}
-								</button>
-							</td>)}
-					</tr>
-					<tr>
-					  <th><h1>Choose A Folder To Move Unwanted Files Into</h1></th>
-					  {this.state.folderSet.map((item,key)=>
-								<td key={item.id}>
-								<button className="grid-item btn btn-warning" name={item.id} id={item.id} value={JSON.stringify(item)} onClick={this.setNoFolder}>{item.name}</button>							
-							</td>)}
-					</tr>
-					
-				</tbody>
-			</table>
+			<div className="row">
+				<div className="column">
+					<h1>Choose A Folder To Keep Files</h1>
+					{this.state.folderSet.map((item,key)=>								
+						<div key={item.id}>
+							<button className="grid-item btn btn-info" name={item.id} id={item.id} value={JSON.stringify(item)} onClick={this.setSaveToFolder}>{item.name}</button>
+						</div>)
+					}
+				</div>
+				<div className="column">
+					<h1>Choose A Folder To Move Unwanted Files Into</h1> 
+					{this.state.folderSet.map((item,key)=>
+						<div key={item.id}>
+							<button className="grid-item btn btn-warning" name={item.id} id={item.id} value={JSON.stringify(item)} onClick={this.setNoFolder}>{item.name}</button>							
+						</div>)
+					}
+				</div>
+			</div>
 		}
 		{	this.state.saveTo != null
 			&& this.state.noFolder != null	

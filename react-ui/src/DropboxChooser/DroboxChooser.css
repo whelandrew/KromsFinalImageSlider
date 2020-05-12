@@ -13,6 +13,19 @@
   border-right: 1px solid black;	  
 }
 
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
 table 
 {
 	width: 100%;
@@ -20,7 +33,7 @@ table
 
 tbody {
   display: flex;
-  width: 800px;
+  width:100%;
   position: relative;
   align-items: stretch;
   border: 1px solid black;  
