@@ -16,6 +16,7 @@
 .column {
   float: left;
   width: 50%;
+  text-align: center;
 }
 
 /* Clear floats after the columns */
@@ -23,6 +24,12 @@
   content: "";
   display: table;
   clear: both;
+}
+
+.row button
+{
+	display:block;
+	width:100%;
 }
 
 
