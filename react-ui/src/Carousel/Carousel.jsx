@@ -7,11 +7,14 @@ import "./slick-theme.css";
 import { HeartFill, XSquareFill } from 'react-bootstrap-icons';
 import Slider from "react-slick";
 
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+
 export default class Carousel extends React.Component 
 {	
 	constructor(props) {
 		super(props);				
 
+		this.keyPresses = this.keyPresses.bind(this);
 		this.getImages = this.getImages.bind(this);
 
 		this.state = {
@@ -109,14 +112,17 @@ export default class Carousel extends React.Component
 			})
 			.then( res => { return res.json(); })
 			.then( data => 
-			{				
-				for(let i in data)
-				{
-					console.log(data[i].result.preview_url)
-				}
+			{		
 				this.setState({images:data});				
 			});		
 		});
+	}
+	
+	keyPresses(item, key)
+	{
+		
+		if(key	===	'up') 	this.rebuildSet(item, this.props.location.state.accountData.toFolder)	
+		if(key	===	'down') this.rebuildSet(item, this.props.location.state.accountData.noFolder)		
 	}
 	
 	render() 
@@ -127,19 +133,22 @@ export default class Carousel extends React.Component
 					&& <h1 key="loading" id="loading">Loading...</h1>
 				}
 				{	this.state.images != null
-					&& <div key='carousel' id='carousel'>							
+					&& <div key='carousel' id='carousel'>					
 						<div key="carouselTopBar" id="carouselTopBar" className='grid-container'>		
 							<p key="grid1" className="grid-item">Save to</p>
 							<p key="grid2"className="grid-item">Get from</p>
 							<p key="grid3"className="grid-item">Move to</p>
 						</div>
 						<Slider key="slider" {...this.state.sliderProps} id='SliderMain'>								
-							{this.state.images.map((item,key)=>									
-							<div id="item" key={item.id + item.name}>
+							{this.state.images.map((item,key)=>			
+							<KeyboardEventHandler
+								handleKeys={['up', 'down']}
+								onKeyEvent={(key, e) => this.keyPresses(item, key)} >							
+								<div id="item" key={item.id + item.name}>
 									<h3 id="caption" key='{item.id}h3'>{item.result.path_display}</h3>
 										<div className="row" key='{item.id}Row'>
-											<div className="column" key='{item.id}yesCol'>
-												<button id='yesButton' className="btn btn-success" key='{item.id}yesButton' onClick={()=>this.rebuildSet(item, this.props.location.state.accountData.toFolder)}>
+											<div className="column" key='{item.id}yesCol'>												
+												<button id='yesButton' className="btn btn-success" key='{item.id}yesButton' onClick={()=>this.rebuildSet(item, this.props.location.state.accountData.toFolder)}>													
 													<HeartFill 
 														key='{item.id}Like'
 														alt="Like"
@@ -151,14 +160,14 @@ export default class Carousel extends React.Component
 													<h4 key='{item.id}yesFolder'>{this.props.location.state.accountData.toFolder}</h4>
 													{document.onkeydown = this.checkKey}
 												</button>
-												</div>
-												<div className="column" key='{item.id}imgCol'>
-												<button key='{item.id}a' href={item.result.preview_url} target='_blank'>
+											</div>
+											<div className="column" key='{item.id}imgCol'>
+												<a href={item.result.preview_url} target='_blank'  rel="noopener noreferrer">
 													<img key='{item.id}img' className="center" src={item.result.preview_url.replace('dl=0','dl=1')} alt="Oops! This one didn't load. Try refreshing."/>	
-												</button>
-												</div>
-												<div className="column" key='{item.id}noCol'>
-												<button id='noButton' className="btn btn-danger" key='{item.id}noButton' onClick={()=>this.rebuildSet(item, this.props.location.state.accountData.noFolder)}>
+												</a>
+											</div>
+											<div className="column" key='{item.id}noCol'>												
+												<button id='noButton' className="btn btn-danger" key='{item.id}noButton' onClick={()=>this.rebuildSet(item, this.props.location.state.accountData.noFolder)}>													
 													<XSquareFill 
 														key='{item.id}Dislike'
 														alt="Dislike"
@@ -172,6 +181,7 @@ export default class Carousel extends React.Component
 											</div>
 										</div>
 								</div>
+							</KeyboardEventHandler>
 							)}
 							</Slider>
 					</div>
