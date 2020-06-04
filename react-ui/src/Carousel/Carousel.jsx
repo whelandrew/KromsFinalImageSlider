@@ -116,7 +116,7 @@ export default class Carousel extends React.Component
 				let imageSet = [];
 				data.forEach(i => 
 				{
-					if(!i.result.Contains("access_error"))
+					if(!i.result.indexOf("error") == -1)
 						imageSet.push(i);
 				});
 				
