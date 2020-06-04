@@ -112,8 +112,15 @@ export default class Carousel extends React.Component
 			})
 			.then( res => { return res.json(); })
 			.then( data => 
-			{		
-				this.setState({images:data});				
+			{	
+				let imageSet = [];
+				data.forEach(i => 
+				{
+					if(!i.result.Contains("access_error"))
+						imageSet.push(i);
+				});
+				
+				this.setState({images:imageSet});				
 			});		
 		});
 	}
